@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri&display=swap" rel="stylesheet">
+    <title> عداد تسبيح الإلكتروني</title>
+    <link rel="icon" href="favicon.ico" type="image/png">
+
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            /* box-sizing: border-box; */
+
+        }
+
+        ::-webkit-scrollbar {
+            width: 0.88rem;
+        }
+
+        ::-webkit-scrollbar-track {
+            border: 7px solid #292c3b;
+            box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            background-color: #d4d4d8;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #999;
+            border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* for Firefox */
+        html {
+            scrollbar-color: #9e4673 #3d4a59;
+        }
+
+        body {
+            min-height: 100vh;
+            /* display: flex; */
+            justify-content: center;
+            align-items: center;
+            overflow-y: scroll;
+            background: linear-gradient(135deg, #f8f9fa, #e3e6eb);
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.5);
+
+
+            background-size: cover;
+            width: 100vw;
+
+            padding: 0px;
+
+
+        }
+
+
+        .container {
+            border: 0.5px solid;
+            position: absolute;
+
+            margin: 0 auto;
+            margin-top: 25px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 300px;
+            height: 550px;
+            flex-direction: auto;
+            border-radius: 7px;
+            background: linear-gradient(135deg, #f8f9fa, #e3e6eb);
+            z-index: 3;
+        }
+
+        .designer {
+            position: relative;
+            z-index: 3;
+            font-size: 0.95rem;
+            /* color: #555; */
+            color: #000;
+            font-weight: 700;
+            margin: 15px auto;
+            display: block;
+        }
+
+        .reminder {
+            font-size: 1.1rem;
+            color: #222;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .watch {
+            width: 250px;
+            height: 250px;
+            background: #fff;
+            border-radius: 30px;
+            margin: 2rem auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: block;
+            padding: 25px 20px;
+            border-radius: 45%;
+        }
+
+        .screen {
+            width: 200px;
+            height: 70px;
+            background: #f0f2f5;
+            border-radius: 15px;
+            margin: 2rem auto 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: 700;
+            border: 1px solid #ddd;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btns {
+            display: block;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.25s;
+            margin: 5px;
+            width: 100px;
+        }
+
+        .add {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .add:hover {
+            background: linear-gradient(135deg, #45a049, #3e8e41);
+        }
+
+        .reset {
+            background: linear-gradient(135deg, #f44336, #e53935);
+            color: white;
+            box-shadow: 0 3px 10px rgba(244, 67, 54, 0.3);
+        }
+
+        .reset:hover {
+            background: linear-gradient(135deg, #e53935, #c62828);
+        }
+
+        .quran {
+            position: absolute;
+            bottom: 13px;
+            right: 37%;
+            transform: translateX(30%);
+            padding: 7px 0px;
+            border-radius: 7px;
+            font-size: 1.1rem;
+            color: #333;
+            font-family: 'Amiri', serif;
+            font-weight: bold;
+        }
+
+        .decor {
+            display: inline-block;
+            border: 1px solid #aaa;
+            padding: 0 8px;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .bold {
+            font-weight: 900;
+        }
+
+        .publish {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #000;
+            font-weight: 700;
+            position: absolute;
+            z-index: 3;
+            bottom: 0px;
+
+        }
+
+        /* أزرار الوضع الليلي */
+        .extra-buttons {
+            border-radius: 5px;
+
+            border: 1px solid #ccc;
+            width: 300px;
+            margin: 15px -26px 0px 0px;
+        }
+
+        .dark-mode {
+            background: linear-gradient(135deg, #333, #111);
+            color: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+            width: 130px;
+        }
+
+        .dark-mode:hover {
+            background: linear-gradient(135deg, #111, #000);
+        }
+
+        .light-mode {
+            background: linear-gradient(135deg, #ddd, #bbb);
+            color: #222;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            width: 140px;
+
+        }
+
+        .light-mode:hover {
+            background: linear-gradient(135deg, #ccc, #aaa);
+
+        }
+
+        img {
+            position: absolute;
+            height: 725px;
+            width: 1300px;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            right: 5px;
+            z-index: 1;
+            opacity: 0.17;
+            object-fit: cover;
+            /* or contain, depending on what you want */
+        }
+
+        .content {
+            position: absolute;
+            z-index: 3;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 1300px;
+            height: 725px;/*  width and height prevent the content from 
+                            resizing and make overflow scrollable,
+                            without causing layout shifts and 
+                            content jumps over other elements */
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="content " style="text-align: center; border: 1px solid;">
+        <img src="Thumbnail.png" alt="transparent image">
+
+        <div class="designer">تصميم: محمد المبارك</div>
+
+        <div class="designer WhatsApp">WhatsApp: 01515207431</div>
+
+
+        <div class="container">
+
+            <div class="reminder">لا تنسَ ذكر الله</div>
+
+            <div class="watch">
+                <div class="screen" id="display">0</div>
+                <br>
+                <div class="btns">
+                    <button class="add" onclick="increase()"> تسبيح </button>
+                    <button class="reset" onclick="resetCount()">حذف</button>
+                </div>
+                <br>
+                <br>
+                <div class="extra-buttons">
+                    <button class="dark-mode" onclick="enableDarkMode()">الوضع الليلي</button>
+                    <button class="light-mode" onclick="disableDarkMode()">الوضع النهاري</button>
+                </div>
+
+            </div>
+            <div class="quran">
+                <span class="bold">{<span class="decor">أَلَا</span> بِذِكْرِ ٱللَّهِ تَطْمَئِنُّ ٱلْقُلُوبُ
+                    }</span>
+
+            </div>
+        </div>
+        <p class="publish " style=" width:100%; text-align:center; font-size:0.9rem; color:#000; margin: 10px;">
+
+            جميع حقوق النشر محفوظة © 2025 محمد المبارك
+        </p>
+
+
+    </div>
+
+
+
+
+    <script>
+        let count = localStorage.getItem("tasbeehCount") || 0;
+        document.getElementById("display").textContent = count;
+
+        function increase() {
+            count++;
+            document.getElementById("display").textContent = count;
+            localStorage.setItem("tasbeehCount", count);
+        }
+
+        function resetCount() {
+            count = 0;
+            document.getElementById("display").textContent = 0;
+            localStorage.setItem("tasbeehCount", 0);
+        }
+        function enableDarkMode() {
+            document.body.style.background = "#111";
+            document.body.style.color = "#fff";
+            document.querySelector("img").style.opacity = "0.17";
+
+            //document.querySelector("img").style.filter = "grayscale(17%)";//this is for dark mode but work as the opacity
+            document.querySelector('.container').style.background = "#222";
+            document.querySelector('.container').style.border = "1px solid #555";
+
+            document.querySelector('.watch').style.background = "#333";
+            document.querySelector('.screen').style.background = "#444";
+            document.querySelector('.screen').style.color = "#939292";
+            document.querySelector('.bold').style.color = "#555";
+            document.querySelector('.bold').style.borderRadius = "7px";
+            document.querySelector('.bold').style.padding = "7px 0px";
+            document.querySelector('.bold').style.background = "linear-gradient(135deg, #ddd, #bbb)";
+            document.querySelector('.designer').style.color = "#aac";
+            document.querySelector('.publish').style.color = "#aac";
+            document.querySelector('.publish').style.fontWeight = "700";
+            document.querySelector('.WhatsApp').style.color = "#aac";
+            document.querySelector('.WhatsApp').style.fontWeight = "900";
+
+        }
+
+        function disableDarkMode() {
+
+
+            document.body.style.background = " linear-gradient(135deg, #f8f9fa, #e3e6eb)";
+
+
+            document.querySelector("img").style.filter = "grayscale(50%)"; // أبيض وأسود
+
+
+            document.querySelector('.container').style.background = "linear-gradient(135deg, #f8f9fa, #e3e6eb)";
+            // want transparent
+            // no repeat image and center and full size
+
+            document.querySelector('.screen').style.color = "#444 ";
+            document.querySelector('.container').style.border = "0.5px solid #000";
+            document.querySelector('.bold').style.background = "linear-gradient(135deg, #e2e6eb, #e3e6eb)";
+            document.querySelector('.designer').style.color = "#000";
+            document.querySelector('.publish').style.color = "#000";
+            document.querySelector('.publish').style.fontWeight = "700";
+            document.querySelector('.WhatsApp').style.color = "#000";
+            document.querySelector('.WhatsApp').style.fontWeight = "900";
+
+
+            // I WANT CLASS SELECTOR OR ALL CLASS
+
+            document.querySelector('.bold').style.borderRadius = "0px";
+            document.querySelector('.bold').style.padding = " 0px";
+            document.querySelector('.watch').style.background = "#fff";
+            document.querySelector('.screen').style.background = "#f0f2f5";
+        }
+
+    </script>
+
+</body>
+
+</html>
